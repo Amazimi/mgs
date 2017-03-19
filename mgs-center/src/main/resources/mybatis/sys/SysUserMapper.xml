@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.johnny.mgs.center.dao.sys.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.johnny.mgs.model.sys.SysUser" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="company_id" property="companyId" jdbcType="BIGINT" />
+        <result column="office_id" property="officeId" jdbcType="BIGINT" />
+        <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="no" property="no" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="TINYINT" />
+        <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="user_type" property="userType" jdbcType="CHAR" />
+        <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+        <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+        <result column="login_date" property="loginDate" jdbcType="TIMESTAMP" />
+        <result column="is_locked" property="isLocked" jdbcType="BIT" />
+        <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    </resultMap>
+
+    <sql id="BaseListColumn" >
+        id,company_id,office_id,login_name,password,no,name,gender,birthday,email,phone,mobile,user_type,avatar,login_ip,login_date,is_locked,create_by,create_date,update_by,update_date,remarks,is_deleted
+    </sql>
+	<sql id="Base_Where_Sql">
+		<where>
+			<foreach collection="params.criteriaList" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criterions" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="BaseListColumn" />
+        from sys_user
+        where id = #{id, jdbcType=BIGINT}
+    </select>
+
+    <insert id="insert" parameterType="com.johnny.mgs.model.sys.SysUser">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+                SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="companyId != null" >
+                company_id,
+            </if>
+            <if test="officeId != null" >
+                office_id,
+            </if>
+            <if test="loginName != null" >
+                login_name,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="no != null" >
+                no,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="gender != null" >
+                gender,
+            </if>
+            <if test="birthday != null" >
+                birthday,
+            </if>
+            <if test="email != null" >
+                email,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+            <if test="userType != null" >
+                user_type,
+            </if>
+            <if test="avatar != null" >
+                avatar,
+            </if>
+            <if test="loginIp != null" >
+                login_ip,
+            </if>
+            <if test="loginDate != null" >
+                login_date,
+            </if>
+            <if test="isLocked != null" >
+                is_locked,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="remarks != null" >
+                remarks,
+            </if>
+            <if test="isDeleted != null" >
+                is_deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id, jdbcType=BIGINT},
+            </if>
+            <if test="companyId != null" >
+                #{companyId, jdbcType=BIGINT},
+            </if>
+            <if test="officeId != null" >
+                #{officeId, jdbcType=BIGINT},
+            </if>
+            <if test="loginName != null" >
+                #{loginName, jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                #{password, jdbcType=VARCHAR},
+            </if>
+            <if test="no != null" >
+                #{no, jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name, jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                #{gender, jdbcType=TINYINT},
+            </if>
+            <if test="birthday != null" >
+                #{birthday, jdbcType=TIMESTAMP},
+            </if>
+            <if test="email != null" >
+                #{email, jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                #{phone, jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                #{mobile, jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null" >
+                #{userType, jdbcType=CHAR},
+            </if>
+            <if test="avatar != null" >
+                #{avatar, jdbcType=VARCHAR},
+            </if>
+            <if test="loginIp != null" >
+                #{loginIp, jdbcType=VARCHAR},
+            </if>
+            <if test="loginDate != null" >
+                #{loginDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="isLocked != null" >
+                #{isLocked, jdbcType=BIT},
+            </if>
+            <if test="createBy != null" >
+                #{createBy, jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null" >
+                #{createDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy, jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null" >
+                #{remarks, jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null" >
+                #{isDeleted, jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.johnny.mgs.model.sys.SysUser" >
+        update sys_user
+        set
+        <trim suffixOverrides=",">
+            <if test="id != null" >
+                id = #{id, jdbcType=BIGINT},
+            </if>
+            <if test="companyId != null" >
+                company_id = #{companyId, jdbcType=BIGINT},
+            </if>
+            <if test="officeId != null" >
+                office_id = #{officeId, jdbcType=BIGINT},
+            </if>
+            <if test="loginName != null" >
+                login_name = #{loginName, jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                password = #{password, jdbcType=VARCHAR},
+            </if>
+            <if test="no != null" >
+                no = #{no, jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                name = #{name, jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                gender = #{gender, jdbcType=TINYINT},
+            </if>
+            <if test="birthday != null" >
+                birthday = #{birthday, jdbcType=TIMESTAMP},
+            </if>
+            <if test="email != null" >
+                email = #{email, jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                phone = #{phone, jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile, jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null" >
+                user_type = #{userType, jdbcType=CHAR},
+            </if>
+            <if test="avatar != null" >
+                avatar = #{avatar, jdbcType=VARCHAR},
+            </if>
+            <if test="loginIp != null" >
+                login_ip = #{loginIp, jdbcType=VARCHAR},
+            </if>
+            <if test="loginDate != null" >
+                login_date = #{loginDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="isLocked != null" >
+                is_locked = #{isLocked, jdbcType=BIT},
+            </if>
+            <if test="createBy != null" >
+                create_by = #{createBy, jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null" >
+                create_date = #{createDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                update_by = #{updateBy, jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null" >
+                update_date = #{updateDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null" >
+                remarks = #{remarks, jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null" >
+                is_deleted = #{isDeleted, jdbcType=BIT},
+            </if>
+        </trim>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    
+    <update id="updateByWhere" parameterType="java.util.Map" >
+        update sys_user
+        set
+        <trim suffixOverrides=",">
+            <if test="entity.id != null" >
+                id = #{entity.id, jdbcType=BIGINT},
+            </if>
+            <if test="entity.companyId != null" >
+                company_id = #{entity.companyId, jdbcType=BIGINT},
+            </if>
+            <if test="entity.officeId != null" >
+                office_id = #{entity.officeId, jdbcType=BIGINT},
+            </if>
+            <if test="entity.loginName != null" >
+                login_name = #{entity.loginName, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.password != null" >
+                password = #{entity.password, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.no != null" >
+                no = #{entity.no, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.name != null" >
+                name = #{entity.name, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.gender != null" >
+                gender = #{entity.gender, jdbcType=TINYINT},
+            </if>
+            <if test="entity.birthday != null" >
+                birthday = #{entity.birthday, jdbcType=TIMESTAMP},
+            </if>
+            <if test="entity.email != null" >
+                email = #{entity.email, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.phone != null" >
+                phone = #{entity.phone, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.mobile != null" >
+                mobile = #{entity.mobile, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.userType != null" >
+                user_type = #{entity.userType, jdbcType=CHAR},
+            </if>
+            <if test="entity.avatar != null" >
+                avatar = #{entity.avatar, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.loginIp != null" >
+                login_ip = #{entity.loginIp, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.loginDate != null" >
+                login_date = #{entity.loginDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="entity.isLocked != null" >
+                is_locked = #{entity.isLocked, jdbcType=BIT},
+            </if>
+            <if test="entity.createBy != null" >
+                create_by = #{entity.createBy, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.createDate != null" >
+                create_date = #{entity.createDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="entity.updateBy != null" >
+                update_by = #{entity.updateBy, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.updateDate != null" >
+                update_date = #{entity.updateDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="entity.remarks != null" >
+                remarks = #{entity.remarks, jdbcType=VARCHAR},
+            </if>
+            <if test="entity.isDeleted != null" >
+                is_deleted = #{entity.isDeleted, jdbcType=BIT},
+            </if>
+        </trim>
+        <if test="_parameter != null">
+			<include refid="Base_Where_Sql" />
+		</if>
+    </update>
+    
+     <select id="count" resultType="java.lang.Integer" parameterType="map" >
+        select
+        	count(1)
+        from sys_user
+        <if test="_parameter != null">
+			<include refid="Base_Where_Sql" />
+		</if>
+    </select>
+    
+    <select id="listByWhere" resultMap="BaseResultMap" parameterType="map" >
+        select
+        <include refid="BaseListColumn" />
+        from sys_user
+        <if test="_parameter != null">
+			<include refid="Base_Where_Sql" />
+		</if>
+    </select>
+        
+    <select id="listByWherePage" resultType="map" parameterType="map" >
+        select
+        <include refid="BaseListColumn" />
+        from sys_user
+        <if test="_parameter != null">
+			<include refid="Base_Where_Sql" />
+		</if>
+    </select>
+
+    <update id="deleteById" parameterType="java.lang.Long" >
+        delete from sys_user
+    	where id = #{id,jdbcType=BIGINT}
+    </update>
+
+	 <update id="deleteByWhere" parameterType="map">
+        delete from sys_user
+    	<if test="_parameter != null">
+			<include refid="Base_Where_Sql" />
+		</if>
+   	 </update>
+</mapper>
